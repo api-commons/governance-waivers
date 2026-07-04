@@ -1,0 +1,20 @@
+{
+  "name": "governance-waivers",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A browser-first tool for sanctioned, owned, expiring API governance exceptions — author a machine-readable waivers file and reconcile it against Spectral lint output so waived violations are suppressed while expired, stale, and expiring waivers surface.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11"
+  },
+  "dependencies": {
+    "yaml": "^2.6.1"
+  }
+}

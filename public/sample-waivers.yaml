@@ -1,0 +1,41 @@
+version: "0.1"
+waivers:
+  - id: WVR-001
+    rule: operation-tags
+    scope:
+      path: "$.paths['/v1/legacy'].*"
+    reason: Legacy endpoint predates our tagging standard; tags tracked in JIRA-482.
+    owner: team-billing
+    ticket: https://example.atlassian.net/browse/JIRA-482
+    granted: "2026-05-01"
+    expires: "2026-12-01"
+
+  - id: WVR-002
+    rule: operation-description
+    scope:
+      files: ["apis/invoices.yaml"]
+    reason: Descriptions are being backfilled this quarter.
+    owner: team-billing
+    expires: "2026-11-15"
+
+  - id: WVR-003
+    rule: operation-operationId
+    scope:
+      path: "$.paths['/v1/legacy'].*"
+    reason: Was granted while the legacy handler was refactored — should be resolved by now.
+    owner: platform
+    granted: "2025-11-01"
+    expires: "2026-03-01"
+
+  - id: WVR-004
+    rule: no-empty-servers
+    reason: Blanket exception carried over from the old ruleset.
+    owner: platform
+
+  - id: WVR-005
+    rule: oas3-schema
+    scope:
+      path: "$.components.schemas.Invoice.*"
+    reason: Known schema quirk on the Invoice model; fix scheduled.
+    owner: team-billing
+    expires: "2026-07-20"

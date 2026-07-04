@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Governance Waivers — sanctioned, owned, expiring exceptions for API governance</title>
+    <meta name="description" content="Author a machine-readable waivers file and reconcile it against Spectral lint output. Waived violations are suppressed; expired, stale, and expiring waivers surface — so teams stop routing around governance. Runs entirely in your browser." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Google tag (gtag.js) — API Commons -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WNSPT4B4S8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WNSPT4B4S8');
+    </script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <strong>Governance Waivers</strong>
+        <span class="tag">waivers.apicommons.org</span>
+      </div>
+      <nav>
+        <a href="#" id="nav-about" title="What a waiver is">About</a>
+        <a href="https://apis.io" target="_blank" rel="noopener">APIs.io</a>
+        <a href="https://apicommons.org" target="_blank" rel="noopener">API Commons</a>
+        <a href="https://github.com/api-commons/governance-waivers" target="_blank" rel="noopener">GitHub</a>
+        <button id="engage-ae" class="engage-btn" type="button" title="Work with API Evangelist on API governance">Get help</button>
+      </nav>
+    </header>
+
+    <div class="toolbar">
+      <button class="measure-btn" id="reconcile" type="button">Reconcile ▸</button>
+      <button class="ghost-btn" id="load-sample" type="button">Load sample</button>
+      <button class="ghost-btn" id="add-waiver" type="button">＋ Author a waiver</button>
+      <div class="counts" id="status" aria-live="polite"></div>
+    </div>
+
+    <details class="drawer" id="drawer" open>
+      <summary>Inputs — Spectral results &amp; waivers file</summary>
+      <div class="io-grid">
+        <div class="io">
+          <h4>Spectral results <span class="muted">(<code>spectral lint -f json</code>)</span>
+            <span class="io-btns"><button class="mini-btn" id="up-results" type="button">Upload</button></span>
+          </h4>
+          <textarea id="results-text" spellcheck="false" placeholder="Paste your Spectral JSON output…"></textarea>
+          <input type="file" id="file-results" accept=".json,application/json" hidden />
+        </div>
+        <div class="io">
+          <h4>Waivers <span class="muted">(YAML / JSON)</span>
+            <span class="io-btns"><button class="mini-btn" id="up-waivers" type="button">Upload</button><button class="mini-btn" id="dl-waivers" type="button">Download</button></span>
+          </h4>
+          <textarea id="waivers-text" spellcheck="false" placeholder="Paste or author your waivers file…"></textarea>
+          <input type="file" id="file-waivers" accept=".yaml,.yml,.json" hidden />
+          <div class="wform" id="wform">
+            <label class="full">Rule code<input id="w-rule" placeholder="operation-tags" /></label>
+            <label>File glob <span class="muted">(optional)</span><input id="w-files" placeholder="apis/legacy/**" /></label>
+            <label>Path scope <span class="muted">(optional)</span><input id="w-path" placeholder="$.paths['/v1/legacy'].*" /></label>
+            <label>Owner<input id="w-owner" placeholder="team-billing" /></label>
+            <label>Expires<input id="w-expires" type="date" /></label>
+            <label class="full">Reason<input id="w-reason" placeholder="Why this exception exists…" /></label>
+            <div class="wform-actions"><button class="ghost-btn" id="w-cancel" type="button">Cancel</button><button class="measure-btn" id="w-add" type="button">Add waiver</button></div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <main class="stage">
+      <section id="report"><div class="loading" id="loading">Loading…</div></section>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
