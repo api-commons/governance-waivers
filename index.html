@@ -64,6 +64,10 @@
             <label>Path scope <span class="muted">(optional)</span><input id="w-path" placeholder="$.paths['/v1/legacy'].*" /></label>
             <label>Owner<input id="w-owner" placeholder="team-billing" /></label>
             <label>Expires<input id="w-expires" type="date" /></label>
+            <label>Kind<select id="w-kind"><option value="">exception</option><option value="exception">exception (suppress rule)</option><option value="override">override (mask a shared model)</option></select></label>
+            <label class="chk"><input id="w-allowed" type="checkbox" checked /> Sanctioned <span class="muted">(allowed by policy)</span></label>
+            <label class="chk"><input id="w-shareable" type="checkbox" checked /> Shareable <span class="muted">(uncheck = local-only)</span></label>
+            <label class="chk"><input id="w-onetime" type="checkbox" /> One-time use <span class="muted">(re-argue if reused)</span></label>
             <label class="full">Reason<input id="w-reason" placeholder="Why this exception exists…" /></label>
             <div class="wform-actions"><button class="ghost-btn" id="w-cancel" type="button">Cancel</button><button class="measure-btn" id="w-add" type="button">Add waiver</button></div>
           </div>

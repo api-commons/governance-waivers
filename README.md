@@ -41,6 +41,29 @@ waivers:
 or only under a specific path — so waiving `operation-tags` on `/v1/legacy` does **not** hide a
 new `operation-tags` violation on `/invoices`.
 
+### Override / masking policy
+
+A hard problem in any governance tool (as a Spectral maintainer put it: *"you're dealing with
+people and organizational issues, not technical ones"*) is the escape hatch — the deliberate
+deviation, or *mask*, from a shared model or style-guide default. Leave it too open and people
+quietly route around the standard. So a waiver carries an optional policy on the exception
+itself:
+
+```yaml
+  - id: WVR-014
+    rule: operation-tags
+    kind: override        # `exception` (suppress a rule) or `override` (mask a shared default)
+    allowed: true         # is this deviation SANCTIONED at all? `false` = requested, not granted
+    shareable: false      # may other specs reuse it? `false` = local-only to this scope
+    oneTimeUse: true      # single grant — reuse must go back to governance review
+```
+
+The tool flags three **policy breaches** — the ways an exception silently stops being one:
+
+- **unsanctioned** — `allowed: false` yet it's still suppressing live violations (grant it or remove it).
+- **reused-one-time** — a `oneTimeUse` grant matched more than once (re-argue it).
+- **leaky-local** — a `shareable: false` override reaching more than one file (scope it down, or share it on purpose).
+
 ## What it does
 
 Paste your `spectral lint -f json` output and a waivers file, and it reconciles them:

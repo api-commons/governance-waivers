@@ -1,8 +1,83 @@
 [
-  { "code": "operation-tags", "message": "Operation must have tags.", "severity": 1, "source": "apis/invoices.yaml", "path": ["paths", "/v1/legacy", "get", "tags"] },
-  { "code": "operation-description", "message": "Operation must have a description.", "severity": 1, "source": "apis/invoices.yaml", "path": ["paths", "/invoices", "post", "description"] },
-  { "code": "info-contact", "message": "Info object must have a contact.", "severity": 1, "source": "apis/invoices.yaml", "path": ["info"] },
-  { "code": "operation-operationId", "message": "Operation must have an operationId.", "severity": 0, "source": "apis/invoices.yaml", "path": ["paths", "/v1/legacy", "post"] },
-  { "code": "oas3-schema", "message": "Schema must be valid.", "severity": 0, "source": "apis/invoices.yaml", "path": ["components", "schemas", "Invoice", "properties", "total"] },
-  { "code": "operation-tags", "message": "Operation must have tags.", "severity": 1, "source": "apis/invoices.yaml", "path": ["paths", "/invoices", "get", "tags"] }
+  {
+    "code": "operation-tags",
+    "message": "Operation must have tags.",
+    "severity": 1,
+    "source": "apis/invoices.yaml",
+    "path": [
+      "paths",
+      "/v1/legacy",
+      "get",
+      "tags"
+    ]
+  },
+  {
+    "code": "operation-description",
+    "message": "Operation must have a description.",
+    "severity": 1,
+    "source": "apis/invoices.yaml",
+    "path": [
+      "paths",
+      "/invoices",
+      "post",
+      "description"
+    ]
+  },
+  {
+    "code": "info-contact",
+    "message": "Info object must have a contact.",
+    "severity": 1,
+    "source": "apis/invoices.yaml",
+    "path": [
+      "info"
+    ]
+  },
+  {
+    "code": "operation-operationId",
+    "message": "Operation must have an operationId.",
+    "severity": 0,
+    "source": "apis/invoices.yaml",
+    "path": [
+      "paths",
+      "/v1/legacy",
+      "post"
+    ]
+  },
+  {
+    "code": "oas3-schema",
+    "message": "Schema must be valid.",
+    "severity": 0,
+    "source": "apis/invoices.yaml",
+    "path": [
+      "components",
+      "schemas",
+      "Invoice",
+      "properties",
+      "total"
+    ]
+  },
+  {
+    "code": "operation-tags",
+    "message": "Operation must have tags.",
+    "severity": 1,
+    "source": "apis/invoices.yaml",
+    "path": [
+      "paths",
+      "/invoices",
+      "get",
+      "tags"
+    ]
+  },
+  {
+    "code": "operation-description",
+    "message": "Operation must have a description.",
+    "path": [
+      "paths",
+      "/payments",
+      "post",
+      "description"
+    ],
+    "severity": 1,
+    "source": "apis/payments.yaml"
+  }
 ]

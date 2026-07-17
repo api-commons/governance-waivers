@@ -12,9 +12,11 @@ waivers:
 
   - id: WVR-002
     rule: operation-description
+    kind: override
+    shareable: false
     scope:
-      files: ["apis/invoices.yaml"]
-    reason: Descriptions are being backfilled this quarter.
+      files: ["apis/**"]
+    reason: Local backfill exception — meant only for the invoices service.
     owner: team-billing
     expires: "2026-11-15"
 
@@ -34,8 +36,17 @@ waivers:
 
   - id: WVR-005
     rule: oas3-schema
+    allowed: false
     scope:
       path: "$.components.schemas.Invoice.*"
-    reason: Known schema quirk on the Invoice model; fix scheduled.
+    reason: Requested by team-billing but NOT sanctioned — schema must be fixed, not waived.
     owner: team-billing
     expires: "2026-07-20"
+
+  - id: WVR-006
+    rule: operation-tags
+    kind: override
+    oneTimeUse: true
+    reason: One-time tagging exception granted for the launch cut — do not reuse.
+    owner: platform
+    expires: "2026-12-01"

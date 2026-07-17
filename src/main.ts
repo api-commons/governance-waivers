@@ -54,16 +54,24 @@ function addWaiver() {
   try { file = parseWaiverFile(val('#waivers-text') || 'waivers: []'); }
   catch { file = { version: '0.1', waivers: [] as Waiver[] }; }
   const n = file.waivers.length + 1;
+  const kind = ($('#w-kind') as HTMLSelectElement).value as 'exception' | 'override' | '';
   const w: Waiver = {
     id: `WVR-${String(n).padStart(3, '0')}`, rule,
     scope: scope.files || scope.path ? scope : undefined,
     reason: val('#w-reason').trim() || undefined, owner: val('#w-owner').trim() || undefined,
     expires: val('#w-expires') || undefined,
+    kind: kind || undefined,
+    allowed: ($('#w-allowed') as HTMLInputElement).checked ? undefined : false,
+    shareable: ($('#w-shareable') as HTMLInputElement).checked ? true : false,
+    oneTimeUse: ($('#w-onetime') as HTMLInputElement).checked ? true : undefined,
   };
   file.waivers.push(w);
   setVal('#waivers-text', serializeWaivers(file));
   $('#wform').classList.remove('show');
   ['#w-rule', '#w-files', '#w-path', '#w-owner', '#w-reason', '#w-expires'].forEach((s) => setVal(s, ''));
+  ['#w-allowed', '#w-shareable'].forEach((s) => (($(s) as HTMLInputElement).checked = true));
+  ($('#w-onetime') as HTMLInputElement).checked = false;
+  ($('#w-kind') as HTMLSelectElement).value = '';
   run();
 }
 
@@ -100,6 +108,7 @@ function render(r: ReconcileResult) {
         <div class="fact ${r.counts.expiredResurfaced ? 'warnf' : ''}"><b>${r.counts.expiredResurfaced}</b><span>resurfaced (waiver expired)</span></div>
         <div class="fact ${r.health.expiring ? 'warnf' : ''}"><b>${r.health.expiring}</b><span>waivers expiring soon</span></div>
         <div class="fact ${r.health.stale ? 'warnf' : ''}"><b>${r.health.stale}</b><span>stale waivers (remove)</span></div>
+        <div class="fact ${r.health.policyBreaches ? 'errf' : ''}"><b>${r.health.policyBreaches}</b><span>policy breaches</span></div>
       </div>
     </div>
     <p class="hint small">A waiver makes an exception <strong>sanctioned, owned, and time-boxed</strong> — so teams stop routing around governance by disabling rules. Waived violations are suppressed below; when a waiver <strong>expires</strong> its violation comes back, and a waiver that no longer matches anything is <strong>stale</strong> (the issue was fixed — delete it).</p>
@@ -137,11 +146,20 @@ function wrow(i: WaiverInfo): string {
   const w = i.waiver;
   const scope = [w.scope?.files?.length ? `files: ${w.scope.files.join(', ')}` : '', w.scope?.path ? `path: ${w.scope.path}` : ''].filter(Boolean).join(' · ') || 'whole ruleset';
   const days = i.daysLeft == null ? 'no expiry' : i.daysLeft < 0 ? `${-i.daysLeft}d ago` : `${i.daysLeft}d left`;
-  return `<div class="wr ${i.status}">
+  const tags = [
+    w.kind === 'override' ? '<span class="wr-kind override">override</span>' : w.kind === 'exception' ? '<span class="wr-kind">exception</span>' : '',
+    w.allowed === false ? '<span class="wr-flag no">not sanctioned</span>' : '',
+    w.shareable === false ? '<span class="wr-flag">local-only</span>' : w.shareable === true ? '<span class="wr-flag">shareable</span>' : '',
+    w.oneTimeUse ? '<span class="wr-flag">one-time</span>' : '',
+  ].filter(Boolean).join('');
+  const policy = i.policy.map((p) => `<div class="wr-policy ${esc(p.code)}">⚠ ${esc(p.detail)}</div>`).join('');
+  return `<div class="wr ${i.policy.length ? 'breach' : i.status}">
     <div class="wr-top"><span class="wr-id">${esc(w.id)}</span><span class="wr-rule">${esc(w.rule)}</span>
       <span class="wr-status ${i.status}">${i.status}</span>${i.stale ? '<span class="badge-stale">stale</span>' : ''}</div>
     <div class="wr-scope">${esc(scope)}</div>
-    <div class="wr-meta">${w.owner ? `<span>owner <b>${esc(w.owner)}</b></span>` : ''}<span>${esc(w.expires || '—')} · ${days}</span><span>matches <b>${i.matched}</b></span>${w.reason ? `<span class="muted">${esc(w.reason)}</span>` : ''}</div>
+    ${tags ? `<div class="wr-tags">${tags}</div>` : ''}
+    <div class="wr-meta">${w.owner ? `<span>owner <b>${esc(w.owner)}</b></span>` : ''}<span>${esc(w.expires || '—')} · ${days}</span><span>matches <b>${i.matched}</b>${i.sources.length > 1 ? ` in ${i.sources.length} files` : ''}</span>${w.reason ? `<span class="muted">${esc(w.reason)}</span>` : ''}</div>
+    ${policy}
   </div>`;
 }
 

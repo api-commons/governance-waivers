@@ -45,9 +45,11 @@ button{font:inherit;cursor:pointer}
 .wform{display:none;grid-template-columns:repeat(4,1fr);gap:.5rem;padding:.6rem;margin-top:.5rem;background:#1b1b1b;border:1px solid var(--line);border-radius:8px}
 .wform.show{display:grid}
 .wform label{font-size:.7rem;color:var(--muted);display:flex;flex-direction:column;gap:.2rem}
-.wform input{background:#161616;border:1px solid var(--line);border-radius:5px;color:var(--fg);padding:.3rem .45rem;font-size:.8rem}
-.wform input:focus{outline:none;border-color:var(--info)}
+.wform input,.wform select{background:#161616;border:1px solid var(--line);border-radius:5px;color:var(--fg);padding:.3rem .45rem;font-size:.8rem}
+.wform input:focus,.wform select:focus{outline:none;border-color:var(--info)}
 .wform .full{grid-column:1/-1}
+.wform .chk{flex-direction:row;align-items:center;gap:.4rem;color:var(--fg);font-size:.76rem}
+.wform .chk input{width:auto;flex:0 0 auto}
 .wform .wform-actions{grid-column:1/-1;display:flex;gap:.5rem;justify-content:flex-end}
 
 .stage{flex:1;overflow:auto;padding:1.2rem 1.4rem}
@@ -89,7 +91,13 @@ button{font:inherit;cursor:pointer}
 /* waivers table */
 .wtable{display:flex;flex-direction:column;gap:.35rem;max-height:460px;overflow:auto}
 .wr{background:#1b1b1b;border:1px solid var(--line);border-left:3px solid var(--nc,var(--line));border-radius:7px;padding:.45rem .6rem}
-.wr.active{--nc:var(--ok)}.wr.expiring{--nc:var(--warn)}.wr.expired{--nc:var(--error)}.wr.permanent{--nc:var(--purple)}
+.wr.active{--nc:var(--ok)}.wr.expiring{--nc:var(--warn)}.wr.expired{--nc:var(--error)}.wr.permanent{--nc:var(--purple)}.wr.breach{--nc:var(--error);background:#241315}
+.wr-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.3rem}
+.wr-kind{font-size:.63rem;text-transform:uppercase;letter-spacing:.04em;font-weight:700;padding:.05rem .35rem;border-radius:3px;background:#1e2a1f;color:var(--ok)}
+.wr-kind.override{background:#241a3a;color:var(--purple)}
+.wr-flag{font-size:.63rem;text-transform:uppercase;letter-spacing:.04em;font-weight:600;padding:.05rem .35rem;border-radius:3px;background:#1b1b1b;color:var(--muted);border:1px solid var(--line)}
+.wr-flag.no{background:#2a1416;color:var(--error);border-color:transparent}
+.wr-policy{font-size:.72rem;color:#f4b3b3;background:#2a1416;border-radius:4px;padding:.25rem .45rem;margin-top:.3rem}
 .wr-top{display:flex;align-items:baseline;gap:.5rem}
 .wr-id{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:.78rem;font-weight:700}
 .wr-rule{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:.76rem;color:var(--info)}
