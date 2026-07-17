@@ -11,12 +11,6 @@ endpoint, a deadline, a deliberate deviation. Without a sanctioned way to say so
 *around* governance: they disable the rule globally, delete the CI step, or ignore the report.
 The rule is gone, and so is the record of why. A **waiver** is the honest alternative.
 
-Part of the [API Commons](https://apicommons.org/tools/) tools, alongside
-[API Validator](https://github.com/api-commons/api-validator),
-[Governance Coverage](https://github.com/api-commons/governance-coverage),
-[Spectral Reporter](https://github.com/api-commons/spectral-reporter), and
-[Governance Pipeline Auditor](https://github.com/api-commons/governance-pipeline-auditor).
-
 ## The waiver
 
 A waiver is a small, machine-readable record — rule + optional scope + a reason, owner, and
@@ -95,6 +89,17 @@ Pure client-side; no data build. The samples in `public/` demonstrate every waiv
 
 Everything runs client-side. The lint results and waivers you paste never leave the page —
 there is no server.
+
+## Part of API Commons
+
+An open, browser-first tool from **[API Commons](https://apicommons.org)** — free, no backend, your data stays in your browser. Browse the full set at **[apicommons.org/tools](https://apicommons.org/tools/)**.
+
+**Related tools**
+- [Governance Baseline](https://baseline.apicommons.org) — adopt governance on a legacy estate; fail only new violations
+- [Governance Coverage](https://coverage.apicommons.org) — how much of your API your rules actually check
+- [Governance Scorecard](https://scorecard.apicommons.org) — the longitudinal health trend of your governance
+- [API Validator](https://validator.apicommons.org) — lint OpenAPI/AsyncAPI/Arazzo/JSON Schema in your browser
+- [Spectral Reporter](https://reporter.apicommons.org) — Spectral JSON → self-contained HTML report
 
 ---
 
